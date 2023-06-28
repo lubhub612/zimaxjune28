@@ -58,6 +58,7 @@ import PencakeSwap from "../../assets/images/pencakeswap.png";
 import useOnClickOutside from "../../lib/UseOnClickOutSide";
 
 import { Web3Button } from '@web3modal/react';
+import { useAccount, useConnect, useDisconnect } from 'wagmi';
 
 import i18next from "i18next";
 export const Header = () => {
@@ -81,6 +82,8 @@ export const Header = () => {
   const { invokeServer } = useGlobal();
   const [showSignIn, setShowSignIn] = useState(false);
   const [showConnectWallet, setShowConnectWallet] = useState(false);
+
+  const {  address, isConnected } = useAccount();
 
   const windowSize = useWindowSize();
   let navigate = useNavigate();
@@ -351,14 +354,18 @@ export const Header = () => {
       <HeaderArea>
         <LeftMenu></LeftMenu>
         <RightMenu>
-          {window.web3 ? (
+         {/*} {window.web3 ? ( */}
+         {isConnected ? ( 
             <>
               <button>
                 <img src={BnbChain} alt="Bnb Chain" /> {t("BNBChain")}
               </button>
-            <button>{wallet.address?.substr(0, 6) +
+          {/*}  <button>{wallet.address?.substr(0, 6) +
                       "..." +
-                      wallet.address?.slice(-4)}</button>
+          wallet.address?.slice(-4)}</button> */}
+          <button>{address?.substr(0, 6) +
+                      "..." +
+          address?.slice(-4)}</button> 
               <button>
                 <PopUpIconMenu
                   width={"257px"}
