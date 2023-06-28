@@ -214,28 +214,14 @@ export default function LevelsArea() {
 
             </h3>
           </h3>
-        {/*  <>
+          <>
             {buttonStatus === 'approve' ? (
               <button onClick={handleApproveUSDT}>{t('APPROVE')}</button>
             ) : (
               <button onClick={handleBuyUsdt}>{t('BUY')}</button>
             )}
-            </>  */}
-          <>
-          {isConnected ? (
-            <>
-            {buttonStatus === 'approve' ? (
-            <button onClick={handleApproveUSDT}>{t('APPROVE')}</button>
-          ) : (
-            <button onClick={handleBuyUsdt}>{t('BUY')}</button>
-          )}
-          </>
-            
-            ) : (
-              <Web3Button />
-            )}
-          
-          </>
+            </>  
+        
           
         </Main>
       </MainArea>

@@ -6,6 +6,7 @@ import ConnectWalletIcon from '../../../assets/images/ConnectWallet-icon.png';
 import TrustWalletIcon from '../../../assets/images/TrustWallet-icon.png';
 import { useCustomWallet } from '../../../contexts/WalletContext';
 import { useTranslation } from 'react-i18next';
+import { Web3Button } from '@web3modal/react';
 
 export const ConnectWalletForm = (props) => {
   const { handleClose } = props;
@@ -46,16 +47,18 @@ export const ConnectWalletForm = (props) => {
             handleOnClick={onMetamask}
           />
         </div>
-        <IconButton
+       <Web3Button />
+       {/*} <IconButton
           label={'WalletConnect'}
           icon={ConnectWalletIcon}
           handleOnClick={onWalletConnect}
-        />
+        />  */}
         <IconButton
           label={'Trust Wallet'}
           icon={TrustWalletIcon}
           handleOnClick={onTrustWallet}
         />
+         
       </div>
     </ConnectWalletFormContainer>
   );
