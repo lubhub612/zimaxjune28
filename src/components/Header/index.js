@@ -57,6 +57,8 @@ import MobileLogo from "../../assets/images/logo-mobile.png";
 import PencakeSwap from "../../assets/images/pencakeswap.png";
 import useOnClickOutside from "../../lib/UseOnClickOutSide";
 
+import { Web3Button } from '@web3modal/react';
+
 import i18next from "i18next";
 export const Header = () => {
   const [themeDrop, setThemeDrop] = useState(false);
@@ -396,9 +398,13 @@ export const Header = () => {
               </button>
             </>
           ) : (
-            <ConnectWallets onClick={handleConnectWallet}>
+            <>
+            <Web3Button />
+             
+           {/*} <ConnectWallets onClick={handleConnectWallet}>
               <button>{t("Connect wallet")}</button>
-            </ConnectWallets>
+          </ConnectWallets> */}
+             </>
           )}
           {walletDropdown && (
             <WalletDropMenu ref={ref}>
