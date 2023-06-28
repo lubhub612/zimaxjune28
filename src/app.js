@@ -56,9 +56,9 @@ import { AutostakingFaq } from './pages/AutostakingFaq';
 import { EthereumClient, w3mConnectors, w3mProvider } from '@web3modal/ethereum'
 import { Web3Modal } from '@web3modal/react'
 import { configureChains, createConfig, WagmiConfig } from 'wagmi'
-import { arbitrum, mainnet, polygon } from 'wagmi/chains'
+import { arbitrum, bsc,  mainnet, polygon } from 'wagmi/chains'
 
-const chains = [arbitrum, mainnet, polygon]
+const chains = [arbitrum, bsc, mainnet, polygon]
 const projectId = '682a954c3f65a66951ad35428b693bb6'
 
 const { publicClient } = configureChains(chains, [w3mProvider({ projectId })])
