@@ -25,26 +25,64 @@ import { useCustomWallet } from '../../contexts/WalletContext';
 
 import { Web3Button } from '@web3modal/react';
 import { useAccount, useConnect, useDisconnect } from 'wagmi';
+import { EthereumProvider } from '@walletconnect/ethereum-provider';
+
 
 const ZMZ_CONTRACT_ADDRESS = '0x37f014bc08e6aaDB4506dd5897700DF317cA132B';
 const USDT_TETHER_TOKEN_ADDRESS = '0x55d398326f99059fF775485246999027B3197955';
+
+
 export default function LevelsArea() {
-  const { wallet } = useCustomWallet();
+  const { wallet, connectWallet, connectWalletByConfig } = useCustomWallet();
 
 
   const { t } = useTranslation();
 
-  const {  isConnected } = useAccount()
+  const {  address, isConnected } = useAccount();
 
   const [userInputValue, setUserInputValue] = useState('0');
   const [estimateValue, setEstimateValue] = useState('');
   const [buttonStatus, setButtonStatus] = useState('approve');
+  const [ethProvider, setEthProvider] = useState('');
 
 
+  const handleConnectWallet = async () => {
+    try {
+      if(!wallet.address){
+         await connectWallet('walletconnect');
+      }
+  /*const provider = await EthereumProvider.init({
+    projectId: '682a954c3f65a66951ad35428b693bb6',
+    chains: [56],
+     optionalMethods: ['eth_signTypedData', 'eth_signTypedData_v4', 'eth_sign'],
+  })
+  console.log(provider)
+  const ethProvider =  await provider.connect();
+  console.log(ethProvider)
+  if (ethProvider) {
+    setEthProvider(ethProvider);
+   }
+ */
+
+  } catch (error) {
+    console.log(error);
+  }
+  };
+
+  useEffect(() => {
+    handleConnectWallet();
+  }, []);
+
+ /* setTimeout(() => {
+    handleConnectWallet()
+    }, 60000); 
+*/
 
   const ZmzContract = async () => {
     try {
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
+     
+          const provider = new ethers.providers.Web3Provider(window.ethereum);
+     //  const provider = new ethers.providers.Web3Provider("https://bsc-dataseed.binance.org");
       const signer = provider.getSigner();
       const ZmzContract = new ethers.Contract(
         ZMZ_CONTRACT_ADDRESS,
@@ -59,7 +97,9 @@ export default function LevelsArea() {
 
   const UsdtContract = async () => {
     try {
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      
+         const provider = new ethers.providers.Web3Provider(window.ethereum);
+     //  const provider = new ethers.providers.Web3Provider("https://bsc-dataseed.binance.org");
       const signer = provider.getSigner();
       const UsdtContract = new ethers.Contract(
         USDT_TETHER_TOKEN_ADDRESS,
@@ -80,7 +120,7 @@ export default function LevelsArea() {
       setUserInputValue(val);
 
       return null;
-    }
+    } 
 
     let _ZmzContract = await ZmzContract();
     setUserInputValue(val);
@@ -93,6 +133,7 @@ export default function LevelsArea() {
       );
       setEstimateValue((_getEstimate.toString() / 10 ** 18).toFixed(2));
     }
+   
   };
 
 
@@ -135,6 +176,8 @@ export default function LevelsArea() {
       console.log(error);
     }
   };
+
+  
   const handleBuyUsdt = async () => {
     console.log('userinput', userInputValue);
 
@@ -211,7 +254,7 @@ export default function LevelsArea() {
               {t('1 ZIMAX = 0.2 USDT')}
             </h3>
             <h3>
-
+         {/*       {wallet.address}  */}
             </h3>
           </h3>
           <>
@@ -221,7 +264,7 @@ export default function LevelsArea() {
               <button onClick={handleBuyUsdt}>{t('BUY')}</button>
             )}
             </>  
-        
+         {/*}   <button onClick={handleConnectWallet}>{t('Unlock')}</button>  */}
           
         </Main>
       </MainArea>
