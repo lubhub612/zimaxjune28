@@ -477,12 +477,16 @@ export const Header = () => {
           </LogoItem>
         </Logo>
         <RightMenu>
-          {window.web3 ? (
+        {/*}  {window.web3 ? (  */}
+        {isConnected ? ( 
             <>
               <button>
                 <img src={BnbChain} alt="Bnb Chain" />
               </button>
-              <button>{t("0xA8D4...7595")}</button>
+            {/*}  <button>{t("0xA8D4...7595")}</button>  */}
+            <button>{address?.substr(0, 6) +
+                      "..." +
+          address?.slice(-4)}</button> 
               <button>
                 <PopUpIconMenu
                   width={"257px"}
@@ -522,9 +526,14 @@ export const Header = () => {
               </button>
             </>
           ) : (
-            <ConnectWallets onClick={handleConnectWallet}>
+            <>
+            <Web3Button />
+             
+           {/*} <ConnectWallets onClick={handleConnectWallet}>
               <button>{t("Connect wallet")}</button>
-            </ConnectWallets>
+          </ConnectWallets> */}
+             </>
+          
           )}
           {walletDropdown && (
             <WalletDropMenu ref={ref}>
